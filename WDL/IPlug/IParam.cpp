@@ -1,5 +1,6 @@
 #include "IParam.h"
 #include <stdio.h>
+#include <cmath>
 
 IParam::IParam()
   : mType(kTypeNone)
@@ -74,12 +75,13 @@ void IParam::SetShape(double shape)
     mShape = shape;
 }
 
-void IParam::SetDisplayText(int value, const char* text)
+void IParam::SetDisplayText(double value, const char* text, double tolerance)
 {
   int n = mDisplayTexts.GetSize();
   mDisplayTexts.Resize(n + 1);
   DisplayText* pDT = mDisplayTexts.Get() + n;
   pDT->mValue = value;
+  pDT->mTolerance = tolerance;
   strcpy(pDT->mText, text);
 }
 
@@ -122,7 +124,7 @@ void IParam::GetDisplayForHost(double value, bool normalized, char* rDisplay, bo
 
   if (withDisplayText)
   {
-    const char* displayText = GetDisplayText( (int) value);
+    const char* displayText = GetDisplayText(value);
 
     if (CSTR_NOT_EMPTY(displayText))
     {
@@ -172,7 +174,7 @@ int IParam::GetNDisplayTexts()
   return mDisplayTexts.GetSize();
 }
 
-const char* IParam::GetDisplayText(int value)
+const char* IParam::GetDisplayText(double value)
 {
   int n = mDisplayTexts.GetSize();
   if (n)
@@ -180,7 +182,7 @@ const char* IParam::GetDisplayText(int value)
     DisplayText* pDT = mDisplayTexts.Get();
     for (int i = 0; i < n; ++i, ++pDT)
     {
-      if (value == pDT->mValue)
+      if (std::abs(value - pDT->mValue) <= pDT->mTolerance)
       {
         return pDT->mText;
       }

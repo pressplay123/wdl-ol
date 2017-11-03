@@ -35,7 +35,7 @@ public:
   void InitDouble(const char* name, double defaultVal, double minVal, double maxVal, double step, const char* label = "", const char* group = "", double shape = 1.);
 
   void Set(double value) { mValue = BOUNDED(value, mMin, mMax); }
-  void SetDisplayText(int value, const char* text);
+  void SetDisplayText(double value, const char* text, double tolerance = 0.0);
   void SetCanAutomate(bool canAutomate) { mCanAutomate = canAutomate; }
   // The higher the shape, the more resolution around host value zero.
   void SetShape(double shape);
@@ -69,7 +69,7 @@ public:
   const char* GetParamGroupForHost();
   
   int GetNDisplayTexts();
-  const char* GetDisplayText(int value);
+  const char* GetDisplayText(double value);
   const char* GetDisplayTextAtIdx(int idx, int* value = 0);
   bool MapDisplayText(char* str, int* pValue);  // Reverse map back to value.
   void GetBounds(double* pMin, double* pMax);
@@ -100,7 +100,8 @@ private:
   
   struct DisplayText
   {
-    int mValue;
+    double mValue;
+	double mTolerance;
     char mText[MAX_PARAM_DISPLAY_LEN];
   };
   
