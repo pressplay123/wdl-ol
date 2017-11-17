@@ -122,6 +122,8 @@ public:
   IPlugBase* GetPlug() { return mPlug; }
   IGraphics* GetGUI() { return mPlug->GetGUI(); }
 
+  void ResetControl();
+
 protected:
   int mTextEntryLength;
   IText mText;

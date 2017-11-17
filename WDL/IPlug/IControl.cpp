@@ -1,4 +1,5 @@
 #include "IControl.h"
+#include "IControl.h"
 #include "math.h"
 #include "Log.h"
 
@@ -181,6 +182,14 @@ void IControl::SetAllAuxParamsFromGUI()
     AuxParam* auxParam = GetAuxParam(i);
     mPlug->SetParameterFromGUI(auxParam->mParamIdx, auxParam->mValue);
   }
+}
+
+void IControl::ResetControl()
+{
+	if (mDefaultValue >= 0.0) {
+		mValue = mDefaultValue;
+		SetDirty();
+	}
 }
 
 bool IPanelControl::Draw(IGraphics* pGraphics)
