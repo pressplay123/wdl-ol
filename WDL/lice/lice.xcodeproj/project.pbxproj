@@ -616,6 +616,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4F8D4BAD13E974CF004F7633 /* lice.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				BASE_SDK = "$(DEVELOPER_SDK_DIR)/MacOSX10.7.sdk";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
@@ -661,6 +662,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4F8D4BAD13E974CF004F7633 /* lice.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				BASE_SDK = "$(DEVELOPER_SDK_DIR)/MacOSX10.7.sdk";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
