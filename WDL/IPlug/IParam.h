@@ -3,6 +3,7 @@
 
 #include "Containers.h"
 #include <math.h>
+#include <vector>
 
 #define MAX_PARAM_NAME_LEN 32 // e.g. "Gain"
 #define MAX_PARAM_LABEL_LEN 32 // e.g. "Percent"
@@ -42,6 +43,8 @@ public:
   void SetIsMeta(bool meta) { mIsMeta = meta; }
   void SetToDefault() { mValue = mDefault; }
 
+  void addSnapValue(double value, const char* snapText);
+
   // Call this if your param is (x, y) but you want to always display (-x, -y).
   void NegateDisplay() { mNegateDisplay = true; }
   bool DisplayIsNegated() const { return mNegateDisplay; }
@@ -52,6 +55,7 @@ public:
   // Accessors / converters.
   // These all return the readable value, not the VST (0,1).
   double Value() const { return mValue; }
+  double SnappedValue() const;
   bool Bool() const { return (mValue >= 0.5); }
   int Int() const { return int(mValue); }
   double DBToAmp();
@@ -97,6 +101,8 @@ private:
   bool mSignDisplay;
   bool mCanAutomate;
   bool mIsMeta;
+
+  std::vector<double> mSnappedValues;
   
   struct DisplayText
   {

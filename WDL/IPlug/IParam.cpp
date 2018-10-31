@@ -75,6 +75,12 @@ void IParam::SetShape(double shape)
     mShape = shape;
 }
 
+void IParam::addSnapValue(double value, const char * snapText)
+{
+    mSnappedValues.push_back(value);
+    SetDisplayText(value, snapText, mStep * 0.5);
+}
+
 void IParam::SetDisplayText(double value, const char* text, double tolerance)
 {
   int n = mDisplayTexts.GetSize();
@@ -83,6 +89,21 @@ void IParam::SetDisplayText(double value, const char* text, double tolerance)
   pDT->mValue = value;
   pDT->mTolerance = tolerance;
   strcpy(pDT->mText, text);
+}
+
+double IParam::SnappedValue() const
+{
+    if (mSnappedValues.empty()) {
+        return mValue;
+    }
+
+    for (const auto &value : mSnappedValues) {
+        if (std::abs(mValue - value) <= mStep * 0.5) {
+            return value;
+        }
+    }
+
+    return mValue;
 }
 
 double IParam::DBToAmp()
