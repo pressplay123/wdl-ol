@@ -75,6 +75,11 @@ void IParam::SetShape(double shape)
     mShape = shape;
 }
 
+void IParam::SetPrecision(int precision)
+{
+    mDisplayPrecision = precision;
+}
+
 void IParam::addSnapValue(double value, const char * snapText)
 {
     mSnappedValues.push_back(value);
@@ -128,6 +133,11 @@ double IParam::GetNormalized()
   return GetNormalized(mValue);
 }
 
+double IParam::GetNormalizedSnapped()
+{
+    return GetNormalized(SnappedValue());
+}
+
 double IParam::GetNormalized(double nonNormalizedValue)
 {
   nonNormalizedValue = BOUNDED(nonNormalizedValue, mMin, mMax);
@@ -160,7 +170,7 @@ void IParam::GetDisplayForHost(double value, bool normalized, char* rDisplay, bo
 
   if (mDisplayPrecision == 0)
   {
-    sprintf(rDisplay, "%d", int(displayValue));
+    sprintf(rDisplay, "%d", int(displayValue + 0.5));
   }
 //   else if(mSignDisplay)
 //   {

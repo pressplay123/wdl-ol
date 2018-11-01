@@ -42,6 +42,7 @@ public:
   void SetShape(double shape);
   void SetIsMeta(bool meta) { mIsMeta = meta; }
   void SetToDefault() { mValue = mDefault; }
+  void SetPrecision(int precision);
 
   void addSnapValue(double value, const char* snapText);
 
@@ -62,6 +63,7 @@ public:
 
   void SetNormalized(double normalizedValue);
   double GetNormalized();
+  double GetNormalizedSnapped();
   double GetNormalized(double nonNormalizedValue);
   double GetNonNormalized(double normalizedValue);
 
