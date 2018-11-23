@@ -1224,18 +1224,20 @@ bool IGraphicsWin::OpenURL(const char* url,
   {
     return false;
   }
+  /** @todo replace MessageBox with something better, then get this connection check back
   DWORD inetStatus = 0;
   if (InternetGetConnectedState(&inetStatus, 0))
-  {
+  { */
     if ((int) ShellExecute(mPlugWnd, "open", url, 0, 0, SW_SHOWNORMAL) > MAX_INET_ERR_CODE)
     {
       return true;
     }
+  /** @todo message box sucks because, plug-in is totally blocked. Replace with something better
   }
   if (errMsgOnFailure)
   {
     MessageBox(mPlugWnd, errMsgOnFailure, msgWindowTitle, MB_OK);
-  }
+  } */
   return false;
 }
 

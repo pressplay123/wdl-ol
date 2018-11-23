@@ -717,12 +717,12 @@ void IURLControl::OnMouseDown(int x, int y, IMouseMod* pMod)
 
   if (CSTR_NOT_EMPTY(mURL))
   {
-    opened = mPlug->GetGUI()->OpenURL(mURL, mErrMsg);
+    opened = mPlug->GetGUI()->OpenURL(mURL, 0, 0, mErrMsg);
   }
 
   if (!opened && CSTR_NOT_EMPTY(mBackupURL))
   {
-    opened = mPlug->GetGUI()->OpenURL(mBackupURL, mErrMsg);
+    opened = mPlug->GetGUI()->OpenURL(mBackupURL, 0, 0, mErrMsg);
   }
 }
 
