@@ -8,6 +8,7 @@
 #include "pluginterfaces/base/ibstream.h"
 #include "pluginterfaces/vst/ivstparameterchanges.h"
 #include "pluginterfaces/vst/ivstevents.h"
+#include "pluginterfaces/vst/ivstmidicontrollers.h"
 
 using namespace Steinberg;
 using namespace Vst;
@@ -145,6 +146,33 @@ IPlugVST3::~IPlugVST3() {}
 #pragma mark -
 #pragma mark AudioEffect overrides
 
+Steinberg::tresult PLUGIN_API IPlugVST3::getMidiControllerAssignment(Steinberg::int32 busIndex, Steinberg::int16 channel,
+    Steinberg::Vst::CtrlNumber midiControllerNumber, Steinberg::Vst::ParamID& id) {
+
+    if (busIndex == 0) {
+        id = -1;
+        switch (midiControllerNumber) {
+        
+        case Steinberg::Vst::kAfterTouch:
+            id = kAftertouchParam;
+            break;
+
+            // other midi cc mappings here...
+
+        default:
+            break;
+        }
+
+        if (id == -1) {
+            id = 0;
+            return kResultFalse;
+        }
+        else {
+            return kResultTrue;
+        }
+    }
+}
+
 tresult PLUGIN_API IPlugVST3::initialize (FUnknown* context)
 {
   TRACE;
@@ -200,6 +228,12 @@ tresult PLUGIN_API IPlugVST3::initialize (FUnknown* context)
     {
       addEventInput (STR16("MIDI Input"), 1);
       //addEventOutput(STR16("MIDI Output"), 1);
+
+      Parameter * param;
+      param = new RangeParameter(USTRING("MIDI Aftertouch"), kAftertouchParam, USTRING(""),
+          0.0, 1.0, 0.0, 0, ParameterInfo::kIsReadOnly);
+      param->setPrecision(1);
+      parameters.addParameter(param);
     }
 
     if (NPresets())
@@ -381,7 +415,6 @@ tresult PLUGIN_API IPlugVST3::process(ProcessData& data)
         if (paramQueue->getPoint(numPoints - 1,  offsetSamples, value) == kResultTrue)
         {
           int idx = paramQueue->getParameterId();
-
           switch (idx)
           {
             case kBypassParam:
@@ -398,6 +431,15 @@ tresult PLUGIN_API IPlugVST3::process(ProcessData& data)
             case kPresetParam:
               RestorePreset(FromNormalizedParam(value, 0, NPresets(), 1.));
               break;
+
+            case kAftertouchParam:
+            {
+                IMidiMsg msg;
+                msg.MakeChannelAftertouchMsg(value);
+                ProcessMidiMsg(&msg);
+                break;
+            }
+
               //TODO pitch bend, modwheel etc
             default:
               if (idx >= 0 && idx < NParams())

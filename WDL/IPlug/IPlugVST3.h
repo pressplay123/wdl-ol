@@ -20,6 +20,7 @@ class IPlugVST3View;
 class IPlugVST3 : public IPlugBase
                 , public Steinberg::Vst::IUnitInfo
                 , public Steinberg::Vst::SingleComponentEffect
+                , public Steinberg::Vst::IMidiMapping
 {
 public:
   IPlugVST3(IPlugInstanceInfo instanceInfo,
@@ -78,6 +79,10 @@ public:
   virtual Steinberg::tresult PLUGIN_API getUnitByBus(Steinberg::Vst::MediaType type, Steinberg::Vst::BusDirection dir, Steinberg::int32 busIndex, Steinberg::int32 channel, Steinberg::Vst::UnitID& unitId) {return Steinberg::kNotImplemented;}
   virtual Steinberg::tresult PLUGIN_API setUnitProgramData(Steinberg::int32 listOrUnitId, Steinberg::int32 programIndex, Steinberg::IBStream* data) {return Steinberg::kNotImplemented;}
   
+  virtual Steinberg::tresult PLUGIN_API getMidiControllerAssignment(Steinberg::int32 busIndex, Steinberg::int16 channel,
+      Steinberg::Vst::CtrlNumber midiControllerNumber, Steinberg::Vst::ParamID& id);
+
+
   //IPlugBase
   virtual void BeginInformHostOfParamChange(int idx);
   virtual void InformHostOfParamChange(int idx, double normalizedValue);
@@ -109,12 +114,13 @@ public:
 //    kExpressionParam = 'expr',
 //    kPitchBendParam = 'pitb',
 //    kSustainParam = 'sust',
-//    kAftertouchParam = 'aftt',
+    kAftertouchParam = 'aftt'
   };
 
   OBJ_METHODS (IPlugVST3, SingleComponentEffect)
   DEFINE_INTERFACES
   DEF_INTERFACE (IUnitInfo)
+  DEF_INTERFACE(IMidiMapping)
   END_DEFINE_INTERFACES (SingleComponentEffect)
   REFCOUNT_METHODS(SingleComponentEffect)
 

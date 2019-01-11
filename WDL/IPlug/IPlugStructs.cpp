@@ -28,6 +28,13 @@ void IMidiMsg::MakePitchWheelMsg(double value, int channel)
   mData1 = i&0x7F;
 }
 
+void IMidiMsg::MakeChannelAftertouchMsg(double value, int channel)
+{
+    Clear();
+    mStatus = channel | (kChannelAftertouch << 4);
+    mData1 = static_cast<BYTE>(value * 127.0);
+}
+
 void IMidiMsg::MakeControlChangeMsg(EControlChangeMsg idx, double value, int channel)
 {
   Clear();
