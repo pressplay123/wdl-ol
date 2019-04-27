@@ -37,8 +37,10 @@
 
 #if EEL_F_SIZE == 4
 typedef float EEL_F;
+typedef float *EEL_F_PTR;
 #else
 typedef double EEL_F WDL_FIXALIGN;
+typedef double *EEL_F_PTR;
 #endif
 
 #ifdef _MSC_VER
@@ -122,6 +124,9 @@ NSEEL_VMCTX NSEEL_VM_alloc(); // return a handle
 void NSEEL_VM_free(NSEEL_VMCTX ctx); // free when done with a VM and ALL of its code have been freed, as well
 
 void NSEEL_VM_SetFunctionTable(NSEEL_VMCTX, eel_function_table *tab); // use NULL to use default (global) table
+
+// validateFunc can return error message if not permitted
+void NSEEL_VM_SetFunctionValidator(NSEEL_VMCTX, const char * (*validateFunc)(const char *fn_name, void *user), void *user);
 
 void NSEEL_VM_remove_unused_vars(NSEEL_VMCTX _ctx);
 void NSEEL_VM_clear_var_refcnts(NSEEL_VMCTX _ctx);

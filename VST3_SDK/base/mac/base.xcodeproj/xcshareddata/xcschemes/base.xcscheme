@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D2AAC045055464E500DB518D"
                BuildableName = "libbase.a"
-               BlueprintName = "base_32&amp;64_intel"
+               BlueprintName = "base_64_intel"
                ReferencedContainer = "container:base.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -26,7 +26,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
@@ -37,7 +36,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -49,7 +47,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D2AAC045055464E500DB518D"
             BuildableName = "libbase.a"
-            BlueprintName = "base_32&amp;64_intel"
+            BlueprintName = "base_64_intel"
             ReferencedContainer = "container:base.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
