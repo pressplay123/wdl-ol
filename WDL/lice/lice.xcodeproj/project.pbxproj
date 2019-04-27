@@ -576,6 +576,7 @@
 			baseConfigurationReference = 4F8D4BAD13E974CF004F7633 /* lice.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				COPY_PHASE_STRIP = NO;
 				EXECUTABLE_PREFIX = "";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -597,6 +598,7 @@
 			baseConfigurationReference = 4F8D4BAD13E974CF004F7633 /* lice.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				EXECUTABLE_PREFIX = "";
 				GCC_ENABLE_SSE3_EXTENSIONS = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
